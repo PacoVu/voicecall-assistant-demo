@@ -43,8 +43,8 @@ class ConversationStates {
 
 let blockedNumbers = [
     "234567890",
-    "12092845360",
-    "6505130931"
+    "2092841212",
+    "6505131145"
 ]
 
 function PhoneEngine() {
@@ -159,22 +159,8 @@ PhoneEngine.prototype = {
   readCustomersList: function(){
     this.customersList = JSON.parse(fs.readFileSync('./customers.json', 'utf8'))
   },
-  updateCustomers: async function(){
-    let customersData = JSON.stringify(this.customersList)
-    fs.writeFileSync('./customers.json', customersData)
-  },
-  setRules: function(rules){
-    this.rules = rules
-  },
-  loadRules: function(){
-    this.rules = JSON.parse(fs.readFileSync('./rules.json', 'utf8'))
-  },
   identifyCallerByPhoneNumber: function(phoneNumber){
     let customer = this.customersList.find(o => o.phoneNumber === phoneNumber)
-    return customer
-  },
-  getCustomerBySSN: function(ssn){
-    let customer = this.customersList.find(o => o.ssn === ssn)
     return customer
   },
   isBlockedCaller: function(fromNumber){
@@ -311,9 +297,9 @@ PhoneEngine.prototype = {
             await this.playInlineResponse(activeCall, `Thank you for your verification mr. ${activeCall.customerInfo.name}. I can help answer your questions relating to our products. I can also forward your call to a proper team or a person if you tell me what you need to know.`)
           }else{
             if (activeCall.screeningFailedCount >= activeCall.maxScreeningFailedCount){
-              // switch to DoB mode
               console.log("Cannot find any customer with this ssn number => repeat checking or hangup or transfer the call...")
               this.playInlineResponse(activeCall, "Sorry, I cannot find a customer with this social security number. Let me transfer your call to our customer service?")
+              // Decide whatever you want to do. hangup or transfer to a customer support team etc.
             }else{
               activeCall.screeningFailedCount++
               this.playInlineResponse(activeCall, "Sorry, I cannot hear you well. Can you repeat it?")
@@ -349,36 +335,13 @@ PhoneEngine.prototype = {
     }
   },
   handleChattingConversation: async function(activeCall){
-    /*
-    if (activeCall.transcript.split(" ").length < 3){
-      console.log("too little text to process")
-      activeCall.transcript = ""
-      return
-    }
-    */
     while (activeCall.speechStreamer && !activeCall.speechStreamer.finished){
       console.log("Overlapping talk ... => cause delay")
       await sleep(1000)
     }
-    /*
-    if (activeCall.speechStreamer && !activeCall.speechStreamer.finished){
-      console.log("Assistant is busy talking => Can be interrupted")
-      if (activeCall.transcript.indexOf("hold on") >= 0 || activeCall.transcript.indexOf("sorry to interrupt you") >= 0){
-        activeCall.speechStreamer.stop()
-        await sleep(1000)
-        await this.playInlineResponse(activeCall, "Ok, tell me what do you really want?")
-        return
-      }else{
-        console.log("Ignore and keep talking")
-        return
-      }
-      console.log("pause talking and process new conversation")
-    }
-    */
-
     var action = await activeCall.assistantEngine.getIntents(activeCall.transcript)
     activeCall.transcript = ""
-    console.log("Action1:", action)
+
     if (!action){
       console.log("Ask to repeat the question.")
       await this.playInlineResponse(activeCall, "Sorry I cannot hear you well, can you repeat it?")
@@ -516,9 +479,8 @@ PhoneEngine.prototype = {
       // if failed reset the mainState and subState
       activeCall.conversationStates.setMainState('chatting')
       activeCall.conversationStates.setSubState('no-action')
-      await this.playInlineResponse(activeCall, "Sorry, I face a problem to transfer the call right now. Let me try again after a few seconds.")
-      await sleep(3000)
-      this.blindTransferCall(activeCall)
+      await this.playInlineResponse(activeCall, "Sorry, I can't transfer your call right now.")
+      // Decide yourself what to do next in this situation
     }
   },
   readPhoneSettings: async function() {

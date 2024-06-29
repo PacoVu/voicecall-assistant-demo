@@ -1,12 +1,11 @@
 {
-  "name": "supervision",
+  "name": "assistant",
   "version": "1.0.0",
-  "description": "Calls supervision demo",
+  "description": "Voice call assistant demo",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
-    "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "author": "Phong Vu",
   "license": "MIT",

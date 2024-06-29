@@ -2,7 +2,4 @@ node_modules/
 build/
 .DS_Store
 .env
-dotenv-v1
-dotenv-v2
-subscriptionid.txt
 package-lock.json
