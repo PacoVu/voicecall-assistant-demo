@@ -1,0 +1,112 @@
+[
+  {
+    "name": "Phong Vu",
+    "phoneNumber": "6502245476",
+    "ssn": "1234",
+    "zipCode": "95123",
+    "dob": "05/17/1970",
+    "billings": {
+      "last": {
+        "dueDate": "June 01, 2204",
+        "paidDate": "May 30, 2024",
+        "amount": "$249.00"
+      },
+      "next": {
+        "dueDate": "July 01, 2204",
+        "paidDate": "",
+        "amount": "$249.00"
+      }
+    },
+    "callbackRequest": true,
+    "status": "Diamond",
+    "lastNote": "yeah and could call me 11221 or next monday "
+  },
+  {
+    "name": "Paco Vu",
+    "phoneNumber": "6505130930",
+    "ssn": "6789",
+    "zipCode": "94084",
+    "dob": "01/02/2001",
+    "billings": {
+      "last": {
+        "dueDate": "June 01, 2204",
+        "paidDate": "May 30, 2024",
+        "amount": "$249.00"
+      },
+      "next": {
+        "dueDate": "July 01, 2204",
+        "paidDate": "",
+        "amount": "$249.00"
+      }
+    },
+    "callbackRequest": false,
+    "lastNote": "",
+    "status": "Bronze"
+  },
+  {
+    "name": "Tyler Liu",
+    "phoneNumber": "6504306662",
+    "ssn": "3456",
+    "zipCode": "94084",
+    "dob": "01/02/2001",
+    "billings": {
+      "last": {
+        "dueDate": "June 01, 2204",
+        "paidDate": "May 30, 2024",
+        "amount": "$249.00"
+      },
+      "next": {
+        "dueDate": "July 01, 2204",
+        "paidDate": "",
+        "amount": "$249.00"
+      }
+    },
+    "callbackRequest": false,
+    "lastNote": "",
+    "status": "Silver"
+  },
+  {
+    "name": "Craig Chan",
+    "phoneNumber": "5106762637",
+    "ssn": "3456",
+    "zipCode": "94084",
+    "dob": "01/02/2001",
+    "billings": {
+      "last": {
+        "dueDate": "June 01, 2204",
+        "paidDate": "May 30, 2024",
+        "amount": "$249.00"
+      },
+      "next": {
+        "dueDate": "July 01, 2204",
+        "paidDate": "",
+        "amount": "$249.00"
+      }
+    },
+    "callbackRequest": false,
+    "lastNote": "",
+    "status": "Silver"
+  },
+  {
+    "name": "Tyler Liu",
+    "phoneNumber": "6506417402",
+    "ssn": "3456",
+    "zipCode": "94084",
+    "dob": "01/02/2001",
+    "billings": {
+      "passed": {
+        "dueDate": "June 01, 2204",
+        "paidDate": "May 30, 2024",
+        "amount": "$249.00"
+      },
+      "next": {
+        "dueDate": "July 01, 2204",
+        "paidDate": "",
+        "amount": "$249.00"
+      }
+    },
+    "callbackRequest": false,
+    "lastNote": "",
+    "status": "Silver"
+  }
+]

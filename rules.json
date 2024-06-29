@@ -1,0 +1,18 @@
+{
+  "robocall_defend": {
+    "name": "robocall_defend",
+    "active": false,
+    "condition": "unknown-number",
+    "screening_mode": "passcode",
+    "deny_action": "hangup",
+    "accept_action": "connect"
+  },
+  "customer_verification": {
+    "name": "customer_verification",
+    "active": false,
+    "condition": "known-number",
+    "screening_mode": "ssn",
+    "deny_action": "transfer",
+    "accept_action": "connect"
+  }
+}

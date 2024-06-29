@@ -1,0 +1,11 @@
+RINGCENTRAL_SERVER_URL=https://platform.ringcentral.com
+RINGCENTRAL_CLIENT_ID=Your_App_Client_Id
+RINGCENTRAL_CLIENT_SECRET=Your_App_client_Secret
+
+RINGCENTRAL_JWT=The-Virtual-Voice-Assistant-JWT
+
+WATSON_SPEECH2TEXT_API_KEY=Your_Watson_Speech_To_Text_Api_Key
+STT_INSTANCE_ID=Your_SpeechToText_Instance_Id
+
+GPT_SERVER_URL=api.openai.com
+GPT_API_KEY=Your-OpenAI-Appkey
