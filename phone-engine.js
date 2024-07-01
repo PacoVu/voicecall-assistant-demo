@@ -169,7 +169,6 @@ PhoneEngine.prototype = {
   },
   createActiveCall: async function(callSession, fromNumber){
     let customer = this.identifyCallerByPhoneNumber(fromNumber)
-    console.log(customer)
     var activeCall = {
       fromNumber: fromNumber,
       callSession: callSession,
@@ -232,7 +231,6 @@ PhoneEngine.prototype = {
     }
   },
   transcriptReady: function(activeCall){
-    console.log("Transcript from Watson:", activeCall.transcript)
     let subState = activeCall.conversationStates.getSubState()
     // Waiting for passcode or yes or no state does not require a delay to get a long answer
     if (activeCall.screeningStatus == 'robocall_defend' || subState == 'wait-for-transfer-decision'){
@@ -347,15 +345,16 @@ PhoneEngine.prototype = {
       await this.playInlineResponse(activeCall, "Sorry I cannot hear you well, can you repeat it?")
       return
     }
+    console.log("Action", action)
     switch (action.intent) {
       case 'request':
         if (action.class == "call transfer"){
           if (action.topic == "ordering"){
-            activeCall.assignedAgent = this.agentsList.find(o => o.extensionNumber == "11680")
+            activeCall.assignedAgent = this.agentsList.find(o => o.extensionNumber == "102")
           }else if (action.topic == "billing"){
-            activeCall.assignedAgent = this.agentsList.find(o => o.extensionNumber == "11601")
+            activeCall.assignedAgent = this.agentsList.find(o => o.extensionNumber == "103")
           }else if (action.topic == "technical support"){
-            activeCall.assignedAgent = this.agentsList.find(o => o.extensionNumber == "11122")
+            activeCall.assignedAgent = this.agentsList.find(o => o.extensionNumber == "104")
           }else{
             if (action.ask)
               await this.playInlineResponse(activeCall, `${action.ask}`)
@@ -363,10 +362,15 @@ PhoneEngine.prototype = {
               await this.playInlineResponse(activeCall, `Sorry I don't know what you want me to do. Can you repeat your question?`)
             return
           }
-          activeCall.conversationStates.setMainState("call-transfer-request")
-          activeCall.conversationStates.setSubState('wait-for-transfer-decision')
-          var confirm = `Do you want me to transfer your call to the ${activeCall.assignedAgent.name}?`
-          await this.playInlineResponse(activeCall, confirm)
+          if (activeCall.assignedAgent){
+            activeCall.conversationStates.setMainState("call-transfer-request")
+            activeCall.conversationStates.setSubState('wait-for-transfer-decision')
+            var confirm = `Do you want me to transfer your call to the ${activeCall.assignedAgent.name}?`
+            await this.playInlineResponse(activeCall, confirm)
+          }else{
+            console.log("Cannot find a designated agent to transfer the call! Check the database")
+            await this.playInlineResponse(activeCall, "Sorry, I can't find a person who can help you with right now. Please explain again and I will try to help you.")
+          }
         }else{
           console.log("No class info => ask to identify the intent")
           if (action.ask)
@@ -376,12 +380,10 @@ PhoneEngine.prototype = {
         }
         break;
       case 'question':
-        console.log("Check topic?", action.topic)
         if (action.answer)
           await this.playInlineResponse(activeCall, action.answer)
         break;
       case 'answer':
-        console.log("Check topic?", action.topic)
         if (action.ask)
           await this.playInlineResponse(activeCall, action.ask)
         break;
@@ -398,7 +400,7 @@ PhoneEngine.prototype = {
       activeCall.transcript = ""
       return
     }
-    if (decision.answer == 1){
+    if (decision.answer == 1){ // It's a yes
         activeCall.conversationStates.setSubState('transfer-call')
         await this.playInlineResponse(activeCall, `Ok, let me transfer your call to ${activeCall.assignedAgent.name}. Please stay on the line.`)
         await sleep(5000)
@@ -419,12 +421,8 @@ PhoneEngine.prototype = {
     }
     var buf = await activeCall.assistantEngine.getSpeech(message)
     activeCall.speechStreamer = activeCall.callSession.streamAudio(buf);
-    while (!activeCall.speechStreamer.finished){
-      await sleep(1000)
-    }
   },
   getCallInfo: async function(activeCall){
-    console.log("getCallInfo")
     try {
       await platform.login({jwt: process.env.RINGCENTRAL_JWT})
       let endpoint = "/restapi/v1.0/account/~/extension/~/active-calls"
@@ -471,8 +469,7 @@ PhoneEngine.prototype = {
       await this.login()
       var resp = await platform.post(endpoint, bodyParams)
       var jsonObj = await resp.json()
-      console.log(JSON.stringify(jsonObj))
-      console.log("BLIND TRANSFERRED")
+      console.log("Call transferred => Hang up this call.")
       activeCall.callSession.hangup()
     }catch(e){
       console.log(e.message)

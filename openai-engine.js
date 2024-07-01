@@ -33,7 +33,7 @@ OpenAIEngine.prototype = {
   },
   getIntents: async function(message){
     var message = `Determine the intent from the text between the triple dashes ---${message}---. Provide the response in JSON format where the key is "intent" and the value is "request" or "answer" or "question", or the value is "neutral" if it is none of the predefined intents.`
-    message += ' 1. Then provide also the topic of the text, where the key is "topic" and the value is either "ordering", or "technical support", or "billings", or any free text if it is none of the predefined topics.'
+    message += ' 1. Then provide also the topic of the text, where the key is "topic" and the value is either "ordering", or "technical support", or "billing", or any free text if it is none of the predefined topics.'
     message += ' 2. If the intent is a "request", classify the text and provide the classification where the key is "class" and the classified value is either "call transfer", or "billing inquiry", or "order inquiry",'
     message += ' or "unclassified" if it is not one of those specified classifications. If the "class" value is "unclassified", provide a short utterance to continue the conversation relating to the topic, where the key is "ask" and the value is the best sentence.'
     message += ' 3. If the intent is a "question", provide the answer to the question where the key is "answer" and the value is the best short answer.'
