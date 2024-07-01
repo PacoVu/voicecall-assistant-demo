@@ -1,6 +1,6 @@
 [
     {
-      "name": "billings team",
+      "name": "billing service",
       "extensionNumber": "102",
       "extensionId": "",
       "phoneNumber": "",
@@ -16,7 +16,7 @@
       "waitList": []
     },
     {
-      "name": "technical support person",
+      "name": "technical support",
       "extensionNumber": "104",
       "extensionId": "",
       "phoneNumber": "",
