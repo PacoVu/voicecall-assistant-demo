@@ -6,7 +6,7 @@ Login your RingCentral developer account at https://developers.ringcentral.com a
 - Authorization: "JWT auth flow"
 - Security app scopes: "Call Control" - "Read Accounts"
 
-## Clone the project and Setup
+## Clone the project and setup
 
 ```
 git clone https://github.com/PacoVu/voicecall-assistant-demo
@@ -14,7 +14,7 @@ cd voicecall-assistant-demo
 cp dotenv .env
 ```
 
-Edit `.env` and set the values.
+Open the `.env` file and set the values.
 
 - `RINGCENTRAL_CLIENT_ID`=Your_App_Client_Id
 - `RINGCENTRAL_CLIENT_SECRET`=Your_App_Client_Secret
