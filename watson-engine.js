@@ -81,7 +81,6 @@ WatsonEngine.prototype = {
           callback("FINAL", transcript)
         }else{
           callback("INTERIM")
-          //thisClass.parent.resetDelayTimer(thisClass.callId)
         }
       }
     });

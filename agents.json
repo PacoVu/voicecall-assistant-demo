@@ -1,41 +1,25 @@
 [
     {
-      "name": "my manager",
-      "status": "Available",
-      "extensionNumber": "11119",
-      "phoneNumber": "",
-      "extensionId": "62288329016",
-      "waitList": []
-    },
-    {
-      "name": "sales team",
-      "extensionNumber": "11680",
-      "extensionId": "",
-      "phoneNumber": "",
-      "status": "Available",
-      "waitList": []
-    },
-    {
       "name": "billings team",
-      "extensionNumber": "11601",
+      "extensionNumber": "102",
       "extensionId": "",
       "phoneNumber": "",
       "status": "Available",
       "waitList": []
     },
     {
-      "name": "product support person",
-      "extensionNumber": "11120",
-      "extensionId": "595861017",
+      "name": "ordering service",
+      "extensionNumber": "103",
+      "extensionId": "",
       "phoneNumber": "",
       "status": "Available",
       "waitList": []
     },
     {
       "name": "technical support person",
-      "extensionNumber": "11122",
-      "extensionId": "62295327016",
-      "phoneNumber": "6502245476",
+      "extensionNumber": "104",
+      "extensionId": "",
+      "phoneNumber": "",
       "status": "Available",
       "waitList": []
     }
